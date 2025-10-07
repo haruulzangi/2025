@@ -1,0 +1,27 @@
+services:
+  uaf:
+    image: ghcr.io/haruulzangi/uaf:latest
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 4G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    read_only: true
+    networks: [traefik_proxy]
+    restart: always
+    labels:
+      - traefik.enable=true
+      
+      - traefik.tcp.routers.uaf.rule=HostSNI(`uaf.challenge.haruulzangi.mn`)
+      - traefik.tcp.routers.uaf.entrypoints=tcp
+      
+      - traefik.tcp.services.uaf.loadbalancer.server.port=30013
+      - traefik.tcp.routers.uaf.tls=true
+      - traefik.tcp.routers.uaf.tls.certresolver=myresolver
+
+networks:
+  traefik_proxy:
+    external: true

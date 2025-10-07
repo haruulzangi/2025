@@ -1,0 +1,26 @@
+services:
+  stack-swing:
+    image: ghcr.io/haruulzangi/stack-swing:latest
+    networks: [traefik_proxy]
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 4G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    labels:
+      - traefik.enable=true
+      
+      - traefik.tcp.routers.stack-swing.rule=HostSNI(`stack-swing.challenge.haruulzangi.mn`)
+      - traefik.tcp.routers.stack-swing.entrypoints=tcp
+      
+      - traefik.tcp.services.stack-swing.loadbalancer.server.port=5001
+      - traefik.tcp.routers.stack-swing.tls=true
+      - traefik.tcp.routers.stack-swing.tls.certresolver=myresolver
+
+networks:
+  traefik_proxy:
+    external: true

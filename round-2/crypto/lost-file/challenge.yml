@@ -1,0 +1,88 @@
+name: Lost file
+author: "[flame](https://github.com/zolbooo)"
+category: crypto
+
+description: |
+  Oh no!!!! I don't have a file, what do I do without the file? Have YOU seen the key file? It might be the key for this challenge (The worst pun ever 😅)
+
+attribution: Authored by [flame](https://github.com/zolbooo)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+connection_info: ssh -p 8022 lost-file.challenge.haruulzangi.mn
+
+flags:
+  - type: regex
+    content: HZ2025{https:\/\/youtu\.be\/YLDq92MUJ28\?si=[A-Za-z\d\-_]+}
+hints:
+  - content: |
+      recoverY finds the y coordinate given x, for a curve y² = x³ - 3x + b (mod p)
+      ```go
+      func recoverY(curve elliptic.Curve, x *big.Int, ybit bool) *big.Int {
+          p := curve.Params().P
+          three := big.NewInt(3)
+
+          // rhs = x³ - 3x + b mod p
+          rhs := new(big.Int).Exp(x, big.NewInt(3), p)
+          t := new(big.Int).Mul(three, x)
+          rhs.Sub(rhs, t)
+          rhs.Add(rhs, curve.Params().B)
+          rhs.Mod(rhs, p)
+
+          // y² = rhs -> compute sqrt(rhs)
+          y := new(big.Int).ModSqrt(rhs, p)
+          if y == nil {
+              return nil
+          }
+          if ybit != (y.Bit(0) == 1) {
+              y.Sub(p, y)
+          }
+          return y
+      }
+
+      func RecoverP256PublicKey(hash []byte, r, s *big.Int) ([]ecdsa.PublicKey, error) {
+          curve := elliptic.P256()
+          n := curve.Params().N
+          N := n.BitLen()
+          z := new(big.Int).SetBytes(hash)
+          if z.BitLen() > N {
+              z.Rsh(z, uint(z.BitLen()-N))
+          }
+
+          invR := new(big.Int).ModInverse(r, n)
+          if invR == nil {
+              return nil, fmt.Errorf("no modular inverse of r")
+          }
+
+          // R has two possible y values
+          x := r
+          candidates := []ecdsa.PublicKey{}
+          for _, y := range []bool{false, true} {
+              Y := recoverY(curve, x, y)
+              if Y == nil {
+                  continue
+              }
+
+              // Compute Q = r⁻¹ (sR – zG)
+              Rx, Ry := x, Y
+              sRx, sRy := curve.ScalarMult(Rx, Ry, s.Bytes())
+              zGx, zGy := curve.ScalarBaseMult(z.Bytes())
+
+              // sR - zG
+              sx, sy := curve.Add(sRx, sRy, zGx, new(big.Int).Neg(zGy).Mod(new(big.Int).Neg(zGy), curve.Params().P))
+
+              Qx, Qy := curve.ScalarMult(sx, sy, invR.Bytes())
+
+              candidates = append(candidates, ecdsa.PublicKey{Curve: curve, X: Qx, Y: Qy})
+          }
+          return candidates, nil
+      }
+      ```
+tags:
+  - hard
+version: "0.1"

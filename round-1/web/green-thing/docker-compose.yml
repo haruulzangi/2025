@@ -1,0 +1,33 @@
+services:
+  green-thing:
+    scale: 2
+    image: ghcr.io/haruulzangi/green-thing:latest
+    networks: [traefik_proxy]
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    labels:
+      - traefik.enable=true
+      
+      - traefik.http.routers.green-thing-http.entrypoints=web
+      - traefik.http.routers.green-thing-http.rule=Host(`green-thing.challenge.haruulzangi.mn`)
+      - traefik.http.routers.green-thing-http.middlewares=green-thing-https
+      - traefik.http.middlewares.green-thing-https.redirectscheme.scheme=https
+      - traefik.http.routers.green-thing.entrypoints=websecure
+      - traefik.http.routers.green-thing.rule=Host(`green-thing.challenge.haruulzangi.mn`)
+      # - traefik.http.routers.green-thing.middlewares=auth
+      # - traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$wXHQ2m8s$$uOIL5fIUQAZGhdVALRIJQ0
+      
+      - traefik.http.services.green-thing.loadbalancer.server.port=5000
+      - traefik.http.routers.green-thing.tls=true
+      - traefik.http.routers.green-thing.tls.certresolver=myresolver
+
+networks:
+  traefik_proxy:
+    external: true

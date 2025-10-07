@@ -1,0 +1,51 @@
+services:
+  paas:
+    image: ghcr.io/haruulzangi/paas/challenge:latest
+    scale: 2
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    networks: [traefik_proxy, paas-network]
+    restart: unless-stopped
+    read_only: true
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik_proxy
+
+      - traefik.http.routers.paas-http.entrypoints=web
+      - traefik.http.routers.paas-http.rule=Host(`paas.challenge.haruulzangi.mn`)
+      - traefik.http.routers.paas-http.middlewares=paas-https
+      - traefik.http.middlewares.paas-https.redirectscheme.scheme=https
+      - traefik.http.routers.paas.entrypoints=websecure
+      - traefik.http.routers.paas.rule=Host(`paas.challenge.haruulzangi.mn`)
+      # - traefik.http.routers.paas.middlewares=auth
+      # - traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$wXHQ2m8s$$uOIL5fIUQAZGhdVALRIJQ0
+
+      - traefik.http.services.paas.loadbalancer.server.port=8080
+      - traefik.http.routers.paas.tls=true
+      - traefik.http.routers.paas.tls.certresolver=myresolver
+  flag:
+    image: ghcr.io/haruulzangi/paas/flag:latest
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    networks:
+      - paas-network
+    environment:
+      FLAG: HZ2025{https://youtu.be/0vPt7GI-2kc?si=SIGNATURE}
+    restart: unless-stopped
+networks:
+  traefik_proxy:
+    external: true
+  paas-network:
+    internal: true

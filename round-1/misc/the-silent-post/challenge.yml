@@ -1,0 +1,31 @@
+name: The Silent Post
+author: '[zjzoloo](https://www.instagram.com/zjzoloo)'
+category: misc
+
+description: |
+  The Mongolian Cyber Horde never leaves obvious traces. Instead, they carve their secrets into silence itself — hiding in places no ordinary scout dares to look. One such secret was left on the Instagram account of the Horde’s scribe.
+
+  You find a simple post with nothing but a cryptic line: “Truth doesn’t scream. It curves.”
+
+  Legends say the Horde uses mathematical patterns as their battle drums, and only those who understand the dance of order and prime can hear their war cry.
+
+  Can you uncover the Horde’s hidden message and prove yourself worthy of joining the cyber riders?
+
+attribution: Authored by [zjzoloo](https://www.instagram.com/zjzoloo)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+image: null
+
+files:
+- dist/chall.png
+
+flags:
+- type: static
+  content: HZ2025{Y0u_4r3_n0w_0ff!c!4lly_ZANG!!!!!!!!!!}
+tags:
+- hard
+version: '0.1'

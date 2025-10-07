@@ -1,0 +1,27 @@
+name: Darkness of the Digital Shaman
+author: '[bekkaze](https://github.com/bekkaze)'
+category: reverse
+
+description: |
+  In Mongolia’s digital steppes, a cyber-shaman’s darkness hides a cursed scroll. Only a skilled hacker can pierce the darkness and reveal its secrets. Flag format: HZ2025{<Scroll message>}
+
+attribution: Authored by [bekkaze](https://github.com/bekkaze)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+image: null
+
+files:
+- dist/darkness
+- dist/scroll.txt
+
+
+flags:
+- type: static
+  content: HZ2025{0nly_d4rK_Cur5e_Br34k3r_can_r34d_th3_Scr0ll_0f_L1ght}
+tags:
+- hard
+version: '0.1'

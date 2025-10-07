@@ -1,0 +1,24 @@
+name: Knock-knock
+author: "[flame](https://github.com/zolbooo)"
+category: misc
+
+description: |
+  Knock-knock… Who's there?
+
+attribution: Authored by [flame](https://github.com/zolbooo)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+connection_info: ssh -p 8022 knock-knock.challenge.haruulzangi.mn
+
+flags:
+  - type: regex
+    content: HZ2025{kn000ck_[a-zA-Z\d\-_]{8,}_kn000ck_s0mething_h@pp3ns_in_ssh_[a-zA-Z\d\-_]{8,}_3v3ry_day}
+tags:
+  - medium
+version: "0.1"

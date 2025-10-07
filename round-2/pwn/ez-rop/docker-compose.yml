@@ -1,0 +1,19 @@
+services:
+  ez-rop:
+    scale: 2
+    image: ghcr.io/haruulzangi/ez-rop:latest
+    networks: [traefik_proxy]
+    restart: always
+    labels:
+      - traefik.enable=true
+      
+      - traefik.tcp.routers.ez-rop.rule=HostSNI(`ez-rop.challenge.haruulzangi.mn`)
+      - traefik.tcp.routers.ez-rop.entrypoints=tcp
+      
+      - traefik.tcp.services.ez-rop.loadbalancer.server.port=5003
+      - traefik.tcp.routers.ez-rop.tls=true
+      - traefik.tcp.routers.ez-rop.tls.certresolver=myresolver
+
+networks:
+  traefik_proxy:
+    external: true

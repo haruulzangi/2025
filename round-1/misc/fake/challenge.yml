@@ -1,0 +1,26 @@
+name: Fake
+author: 'Id3r'
+category: misc
+
+description: |
+  Secret message and external hints
+
+attribution: Authored by Id3r
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+image: null
+
+files:
+- dist/astebin.png
+
+
+flags:
+- type: static
+  content: HZ2025{Ne0_S33_th3_Unse3n_2025}
+tags:
+- easy
+version: '0.1'

@@ -1,0 +1,28 @@
+name: Homework - Lost file
+author: "[flame](https://github.com/zolbooo)"
+category: crypto
+
+description: |
+  Oh no!!!! I don't have a file, what do I do without the file? Have YOU seen the key file?
+
+  It is homework but with a twist :) Connect via TLS with SNI: `homework-lost-file.challenge.haruulzangi.mn`
+
+  recoverY finds the y coordinate given x, for a curve y² = x³ - 3x + b (mod p)
+
+attribution: Authored by [flame](https://github.com/zolbooo)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+connection_info: openssl s_client -connect homework-lost-file.challenge.haruulzangi.mn:443 -servername homework-lost-file.challenge.haruulzangi.mn
+
+flags:
+  - type: static
+    content: HZ2025{https:\/\/youtu\.be\/YLDq92MUJ28\?k=[A-Za-z\d\-_]{8,}&si=[A-Za-z\d\-_]{8,}}
+tags:
+  - hard
+version: "0.1"

@@ -1,0 +1,14 @@
+services:
+  ultra-jinja: # You are here… I guess…
+    build:
+      context: challenge
+    ports:
+      - "8080:8080"
+  db: # You can't get there that easily…
+    build:
+      context: db
+    environment:
+      POSTGRES_USER: ninja
+      POSTGRES_PASSWORD: jinja
+      POSTGRES_DB: db
+    ports: [] # Life ain't easy eh?

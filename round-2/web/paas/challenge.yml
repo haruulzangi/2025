@@ -1,0 +1,33 @@
+name: PaaS
+author: "[flame](https://github.com/zolbooo)"
+category: web
+
+description: |
+  Ping-as-a-service. Ain’t this fun and exciting? This task is for everyone who
+  works with Clouds and such 😉
+
+  Hit production, hit production, use Amazon baby. Baby, I know your database
+  needs upgrades tonight :)
+
+  As always, get the flag at tcp://flag:1337 🇲🇳
+
+attribution: Authored by [flame](https://github.com/zolbooo)
+type: dynamic
+
+files:
+  - challenge/Dockerfile
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+connection_info: https://paas.challenge.haruulzangi.mn
+
+flags:
+  - type: regex
+    content: HZ2025{https:\/\/youtu\.be\/0vPt7GI-2kc\?si=[A-Za-z\d\-_]{8,}}
+tags:
+  - easy
+version: "0.1"

@@ -1,0 +1,28 @@
+name: Fast fast fast
+author: '[Ebo](https://github.com/enhbold)'
+category: pwn
+
+description: |
+  Can you be fast enough?
+
+attribution: Authored by [Ebo](https://github.com/enhbold)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+files:
+- dist/fastbin
+- dist/libc-2.23.so
+
+connection_info: ncat --ssl fast-fast-fast.challenge.haruulzangi.mn 1337
+
+flags:
+- type: static
+  content: HZ2025{F4st_f4st_fAAAAAAAAST_You_are_s0_fast!}
+tags:
+- hard
+version: '0.1'

@@ -1,0 +1,28 @@
+name: Ultra Jinja revenge
+author: "[flame](https://github.com/zolbooo)"
+category: web
+
+description: |
+  Mr. Ninja Jinja has learnt a lot last week, he won't give up that easily!
+  Please note that this challenge tends to do a harakiri, if you know what I mean ;)
+
+attribution: Authored by [flame](https://github.com/zolbooo)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+files:
+  - dist/docker-compose.yml.challenge
+
+connection_info: https://ultra-jinja-revenge.challenge.haruulzangi.mn
+
+flags:
+  - type: regex
+    content: HZ2025{https:\/\/youtu\.be\/0Wa_CR0H8g4\?si=[A-Za-z\d\-_]+}
+tags:
+  - medium
+version: "0.1"

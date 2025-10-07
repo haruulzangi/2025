@@ -1,0 +1,24 @@
+name: Futuristic crypto
+author: "[flame](https://github.com/zolbooo)"
+category: crypto
+
+description: |
+  I woke up and heard that OpenSSH 10.0 is out?! What kind of magic they must've brought to bump to major version?
+
+attribution: Authored by [flame](https://github.com/zolbooo)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+connection_info: https://futuristic-crypto.challenge.haruulzangi.mn
+
+flags:
+  - type: regex
+    content: HZ2025{[A-Za-z\d+\/]+_p0st_qu@ntum_l1f3_[A-Za-z\d+\/]+}
+tags:
+  - easy
+version: "0.1"

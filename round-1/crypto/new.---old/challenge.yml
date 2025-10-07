@@ -1,0 +1,29 @@
+name: New. -> Old
+author: '<https://github.com/dorjoos>'
+category: crypto
+
+description: |
+  Crypto warmUP
+
+  Flag format: HZ2025{DECODEDTEXT}
+
+attribution: Authored by <https://github.com/dorjoos>
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+image: null
+
+files:
+- dist/crypto_warmup.txt
+
+
+flags:
+- type: static
+  content: HZ2025{MONGOLWARRIOR}
+  data: "case_insensitive"
+tags:
+- warmup
+version: '0.1'

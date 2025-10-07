@@ -1,0 +1,27 @@
+services:
+  fast-fast-fast:
+    image: ghcr.io/haruulzangi/fast-fast-fast:latest
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 4G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    read_only: true
+    networks: [traefik_proxy]
+    restart: always
+    labels:
+      - traefik.enable=true
+      
+      - traefik.tcp.routers.fast-fast-fast.rule=HostSNI(`fast-fast-fast.challenge.haruulzangi.mn`)
+      - traefik.tcp.routers.fast-fast-fast.entrypoints=tcp
+      
+      - traefik.tcp.services.fast-fast-fast.loadbalancer.server.port=30010
+      - traefik.tcp.routers.fast-fast-fast.tls=true
+      - traefik.tcp.routers.fast-fast-fast.tls.certresolver=myresolver
+
+networks:
+  traefik_proxy:
+    external: true

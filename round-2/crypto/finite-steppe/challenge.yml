@@ -1,0 +1,26 @@
+name: Finite Steppe
+author: '[zjzoloo](https://www.instagram.com/zjzoloo)'
+category: crypto
+
+description: |
+  The Cyber Horde scattered your secrets across the endless finite field steppe. Recover the flag by piecing together the fragments they left behind. -zjzoloo
+
+attribution: Authored by [zjzoloo](https://www.instagram.com/zjzoloo)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+files:
+- dist/challenge.py
+- dist/output.txt
+
+flags:
+- type: static
+  content: HZ2025{Lagr4ng3's-m3thod-gej-sonssonuuuuuu?!}
+tags:
+- medium
+version: '0.1'

@@ -1,0 +1,32 @@
+name: pwn4life
+author: "Guess who?"
+category: web
+
+description: |
+  I think that was a web challenge… But turns out there so much more to it…
+
+  Kinda whitebox? Challenge for real APT wannabes 🔥
+
+attribution: Authored by [flame](https://github.com/zolbooo)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+files:
+  - dist/server.zip
+
+connection_info: https://pwn4life.challenge.haruulzangi.mn
+
+flags:
+  - type: regex
+    content: HZ2025{https:\/\/youtu\.be\/5P3k9oGUPQ8\?si=[A-Za-z\d\-_]+}
+hints:
+  - content: |
+      Fun fact: curl can be used to interact with Redis. Don't know how to apply it here tho...
+tags:
+  - hard
+version: "0.1"

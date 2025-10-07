@@ -1,0 +1,25 @@
+name: Khan's Factorization Raid
+author: 'zjzoloo'
+category: crypto
+
+description: |
+  Genghis Khan's cyber horde has found a fortress built on a weak prime—crack the modulus and seize the secret.
+
+attribution: Authored by zjzoloo
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+image: null
+
+files:
+- dist/challenge.py
+
+flags:
+- type: static
+  content: HZ2025{P0ll4rd'S/p-1/Alg0r!thm}
+tags:
+- easy
+version: '0.1'

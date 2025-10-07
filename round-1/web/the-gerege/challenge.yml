@@ -1,0 +1,28 @@
+name: The Gerege
+author: '[khangal](https://github.com/ekhangal)'
+category: web
+
+description: |
+  One of the Great Khan's coolest inventions was The Gerege — a kind of modern passport made from rare metals and inscribed with Mongolian script. In this challenge, you've already got the Silver and Bronze Gerege. But the real prize is the Golden one… can you get it?
+
+attribution: Authored by [khangal](https://github.com/ekhangal)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+image: null
+
+files:
+- dist/thegerege.zip
+
+
+connection_info: http://the-gerege.challenge.haruulzangi.mn:8008
+
+flags:
+- type: static
+  content: HZ2025{Off1ci4l!y_G0ld3n_GeR3g3_h0Ld3RR!_0bd99a4187db849cc30f7b3596284a17}
+tags:
+- medium
+version: '0.1'

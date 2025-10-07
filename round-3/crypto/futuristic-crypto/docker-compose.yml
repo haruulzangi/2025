@@ -1,0 +1,38 @@
+services:
+  init:
+    image: alpine:latest
+    volumes:
+      - futuristic-crypto-data:/data
+    command: ["/bin/chown", "-R", "65532:65532", "/data"] # Let the challenge live xd
+  futuristic-crypto:
+    scale: 2
+    depends_on:
+      init:
+        condition: service_completed_successfully
+    image: ghcr.io/haruulzangi/futuristic-crypto:latest
+    networks: [traefik_proxy]
+    restart: always
+    volumes:
+      - futuristic-crypto-data:/data
+    environment:
+      - FLAG=HZ2025{$1_p0st_qu@ntum_l1f3_$2}
+    labels:
+      - traefik.enable=true
+
+      - traefik.http.routers.futuristic-crypto-http.entrypoints=web
+      - traefik.http.routers.futuristic-crypto-http.rule=Host(`futuristic-crypto.challenge.haruulzangi.mn`)
+      - traefik.http.routers.futuristic-crypto-http.middlewares=futuristic-crypto-https
+      - traefik.http.middlewares.futuristic-crypto-https.redirectscheme.scheme=https
+      - traefik.http.routers.futuristic-crypto.entrypoints=websecure
+      - traefik.http.routers.futuristic-crypto.rule=Host(`futuristic-crypto.challenge.haruulzangi.mn`)
+      - traefik.http.routers.futuristic-crypto.middlewares=auth
+      - traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$wXHQ2m8s$$uOIL5fIUQAZGhdVALRIJQ0
+
+      - traefik.http.services.futuristic-crypto.loadbalancer.server.port=8080
+      - traefik.http.routers.futuristic-crypto.tls=true
+      - traefik.http.routers.futuristic-crypto.tls.certresolver=myresolver
+volumes:
+  futuristic-crypto-data:
+networks:
+  traefik_proxy:
+    external: true

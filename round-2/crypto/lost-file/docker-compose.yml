@@ -1,0 +1,78 @@
+services:
+  keygen:
+    image: alpine:latest
+    command: >
+      sh -c "apk add --no-cache openssl &&
+         if [ ! -f /data/key.pem ]; then
+           openssl ecparam -name prime256v1 -genkey -noout -out /data/key.pem && chmod 444 /data/key.pem;
+         fi"
+    volumes:
+      - lost-file-data:/data
+    restart: "no"
+  lost-file-oracle:
+    depends_on:
+      keygen:
+        condition: service_completed_successfully
+    image: ghcr.io/haruulzangi/lost-file/oracle:latest
+    scale: 2
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    networks: [internal]
+    restart: unless-stopped
+    volumes:
+      - lost-file-data:/data:ro
+    environment:
+      - DATA_DIR=/data
+    labels:
+      - traefik.enable=true
+
+      - traefik.http.routers.lost-file-http.entrypoints=web
+      - traefik.http.routers.lost-file-http.rule=Host(`lost-file-oracle.challenge.haruulzangi.mn`)
+      - traefik.http.routers.lost-file-http.middlewares=lost-file-https
+      - traefik.http.middlewares.lost-file-https.redirectscheme.scheme=https
+      - traefik.http.routers.lost-file.entrypoints=websecure
+      - traefik.http.routers.lost-file.rule=Host(`lost-file-oracle.challenge.haruulzangi.mn`)
+      # - traefik.http.routers.lost-file.middlewares=auth
+      # - traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$wXHQ2m8s$$uOIL5fIUQAZGhdVALRIJQ0
+
+      - traefik.http.services.lost-file.loadbalancer.server.port=8080
+      - traefik.http.routers.lost-file.tls=true
+      - traefik.http.routers.lost-file.tls.certresolver=myresolver
+  lost-file-challenge:
+    depends_on:
+      keygen:
+        condition: service_completed_successfully
+    image: ghcr.io/haruulzangi/lost-file/challenge:latest
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    networks: [internal, egress]
+    restart: unless-stopped
+    volumes:
+      - lost-file-data:/data:ro
+    environment:
+      - ORACLE_ADDR=https://lost-file-oracle.challenge.haruulzangi.mn/zairan
+      - DATA_DIR=/data
+      - FLAG=HZ2025{https://youtu.be/YLDq92MUJ28?si=SIGNATURE}
+    ports:
+      - 8022:2222
+volumes:
+  lost-file-data:
+networks:
+  internal:
+    name: traefik_proxy
+    external: true
+  egress:
+    name: traefik_egress
+    external: true

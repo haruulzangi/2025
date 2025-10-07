@@ -1,0 +1,27 @@
+name: Reverse task - The beginning
+author: "[flame](https://github.com/zolbooo)"
+category: web
+
+description: |
+  This is not a reverse task as I want them to be, but it's a great place to learn about networking?
+
+attribution: Authored by [flame](https://github.com/zolbooo)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+files:
+  - challenge/src/main.rs
+
+connection_info: https://reverse-task---the-beginning.challenge.haruulzangi.mn
+
+flags:
+  - type: regex
+    content: HZ2025{1_w1ll_[A-Za-z\d\-_]{8,}_c0m3_b@ck!_[A-Za-z\d\-_]{8,}}
+tags:
+  - medium
+version: "0.1"

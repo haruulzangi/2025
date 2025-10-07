@@ -1,0 +1,31 @@
+name: Ghost of Genghis
+author: 'xyptonize'
+category: forensics
+
+description: |
+  1200 AD, The Mongol Empire: Genghis Khan's war machine was unstoppable. But what historians never recorded was his most secret weapon - The Silent Horde, a cyber warfare division centuries ahead of its time.
+
+  The descendants of The Silent Horde have awakened. Calling themselves "The Ghost of Genghis," they've launched a cyber campaign using ancient Mongolian encryption techniques combined with modern ransomware tactics. Their goal: to establish a digital empire that would make their ancestor proud.
+
+  Your forensic team has discovered that a critical server has been compromised. The attackers left behind their signature - a ransomware strain called "SteppeStorm" that encrypts files using algorithms based on Genghis Khan's battle formations.
+
+  Dropped Artifacts and Evidence is given below:
+  <https://transfer.cloud.mn/view/PWPOSX>
+  <https://transfer.cloud.mn/view/WRU5DM> - password: `H@ruULz@ng!2025!@#`
+
+attribution: Authored by xyptonize
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+
+flags:
+- type: static
+  content: HZ2025{D@ng-U'r3-r@ns0mw4r3-3nj0y3r}
+tags:
+- medium
+version: '0.1'

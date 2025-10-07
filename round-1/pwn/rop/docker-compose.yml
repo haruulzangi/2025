@@ -1,0 +1,26 @@
+services:
+  rop:
+    image: ghcr.io/haruulzangi/rop:latest
+    networks: [traefik_proxy]
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 2G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    labels:
+      - traefik.enable=true
+      
+      - traefik.tcp.routers.rop.rule=HostSNI(`rop.challenge.haruulzangi.mn`)
+      - traefik.tcp.routers.rop.entrypoints=tcp
+      
+      - traefik.tcp.services.rop.loadbalancer.server.port=5000
+      - traefik.tcp.routers.rop.tls=true
+      - traefik.tcp.routers.rop.tls.certresolver=myresolver
+
+networks:
+  traefik_proxy:
+    external: true

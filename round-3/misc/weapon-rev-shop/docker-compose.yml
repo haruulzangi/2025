@@ -1,0 +1,19 @@
+services:
+  weapon-rev-shop:
+    scale: 2
+    image: ghcr.io/haruulzangi/weapon-rev-shop:latest
+    networks: [traefik_proxy]
+    restart: always
+    labels:
+      - traefik.enable=true
+      
+      - traefik.tcp.routers.weapon-rev-shop.rule=HostSNI(`weapon-rev-shop.challenge.haruulzangi.mn`)
+      - traefik.tcp.routers.weapon-rev-shop.entrypoints=tcp
+      
+      - traefik.tcp.services.weapon-rev-shop.loadbalancer.server.port=11337
+      - traefik.tcp.routers.weapon-rev-shop.tls=true
+      - traefik.tcp.routers.weapon-rev-shop.tls.certresolver=myresolver
+
+networks:
+  traefik_proxy:
+    external: true

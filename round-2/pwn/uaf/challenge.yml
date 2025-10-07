@@ -1,0 +1,27 @@
+name: UAF
+author: '[enhbold](https://github.com/enhbold)'
+category: pwn
+
+description: ''
+
+attribution: Authored by [enhbold](https://github.com/enhbold)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+files:
+- dist/libc-2.31.so
+- dist/uaf
+
+connection_info: ncat --ssl uaf.challenge.haruulzangi.mn 1337
+
+flags:
+- type: static
+  content: HZ2025{u4f_g0d_1s_th4t_y0U!}
+tags:
+- medium
+version: '0.1'

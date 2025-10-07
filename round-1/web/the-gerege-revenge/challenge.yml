@@ -1,0 +1,28 @@
+name: The Gerege Revenge
+author: '[khangal](https://github.com/ekhangal)'
+category: web
+
+description: |
+  Great Khan's Revenge. Whoever does not show reverence shall be punished by death!
+
+attribution: Authored by [khangal](https://github.com/ekhangal)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+image: null
+
+files:
+- dist/thegerege-revenge.zip
+
+
+connection_info: http://the-gerege-revenge.challenge.haruulzangi.mn:8009
+
+flags:
+- type: static
+  content: HZ2025{SSRF_b3tttt3Rrr_th4n_Un1nt3nded_URLenc0ded_5olut1on!_3a2c09c740e97771957f5dec5dcf8a5e}
+tags:
+- medium
+version: '0.1'

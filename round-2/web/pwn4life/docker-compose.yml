@@ -1,0 +1,68 @@
+services:
+  init:
+    image: ghcr.io/haruulzangi/pwn4life/challenge:latest
+    volumes:
+      - challenge_data:/data
+    command: >
+      sh -c "cp /app/challenge /data/challenge && chmod 444 /data/challenge"
+    restart: "no"
+  server:
+    depends_on:
+      init:
+        condition: service_completed_successfully
+    image: ghcr.io/haruulzangi/pwn4life/server:latest
+    scale: 2
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    networks: [traefik_proxy, pwn4life]
+    restart: unless-stopped
+    volumes:
+      - challenge_data:/data:ro
+    environment:
+      - BINARY_PATH=/data/challenge
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik_proxy
+
+      - traefik.http.routers.pwn4life-http.entrypoints=web
+      - traefik.http.routers.pwn4life-http.rule=Host(`pwn4life.challenge.haruulzangi.mn`)
+      - traefik.http.routers.pwn4life-http.middlewares=pwn4life-https
+      - traefik.http.middlewares.pwn4life-https.redirectscheme.scheme=https
+      - traefik.http.routers.pwn4life.entrypoints=websecure
+      - traefik.http.routers.pwn4life.rule=Host(`pwn4life.challenge.haruulzangi.mn`)
+      # - traefik.http.routers.pwn4life.middlewares=auth
+      # - traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$wXHQ2m8s$$uOIL5fIUQAZGhdVALRIJQ0
+
+      - traefik.http.services.pwn4life.loadbalancer.server.port=8080
+      - traefik.http.routers.pwn4life.tls=true
+      - traefik.http.routers.pwn4life.tls.certresolver=myresolver
+  challenge:
+    image: ghcr.io/haruulzangi/pwn4life/challenge:latest
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    privileged: true
+    read_only: true
+    networks: [pwn4life]
+    restart: unless-stopped
+    environment:
+      - FLAG=HZ2025{https://youtu.be/5P3k9oGUPQ8?si=%s}
+volumes:
+  challenge_data:
+networks:
+  traefik_proxy:
+    external: true
+  pwn4life:
+    driver: bridge
+    internal: true

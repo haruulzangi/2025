@@ -1,0 +1,25 @@
+name: Horde's Base
+author: '[zjzoloo](https://www.instagram.com/zjzoloo)'
+category: crypto
+
+description: |
+  Across the digital steppe, 64-coded riders carry the horde's secrets. Can you follow the patterns and uncover their hidden message?
+
+attribution: Authored by [zjzoloo](https://www.instagram.com/zjzoloo)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+files:
+- dist/challenge.txt
+
+flags:
+- type: static
+  content: HZ2025{base64_ASC!!_4RT_by_zjzoloo}
+tags:
+- warmup
+version: '0.1'

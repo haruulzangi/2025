@@ -1,0 +1,32 @@
+name: Chicken or egg?
+author: "neverl33t"
+category: crypto
+
+description: |
+  Sometimes you can't help but wonder: which came first, the chicken or the egg? This task becomes particularly hard when you are trying to implement a secure communication channel. Wanna give it a shot?
+
+attribution: Authored by neverl33t
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+image: null
+
+connection_info: ssh -p 8022 chicken-or-egg.challenge.haruulzangi.mn
+
+flags:
+  - type: regex
+    content: HZ2025{s0_h@rd_onl1_g0l@ng_can_th1s_[a-zA-Z\d\-_]+}
+hints:
+  - content: |
+      You can use paramiko but…
+
+      Nothing beats a `golang.org/x/crypto/ssh` library! And right now, you can grab 50 pounds for the
+      `PublicKeysCallback` field!
+    cost: 0
+
+tags:
+  - medium
+version: "0.1"

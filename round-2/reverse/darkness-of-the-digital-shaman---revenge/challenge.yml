@@ -1,0 +1,33 @@
+name: Darkness of the Digital Shaman - Revenge
+author: '[bekkaze](https://github.com/bekkaze)'
+category: reverse
+
+description: |
+  In Mongolia's digital steppes, a cyber-shaman's darkness hides a cursed scroll. Only a skilled hacker can pierce the darkness and reveal its secrets.
+
+attribution: Authored by [bekkaze](https://github.com/bekkaze)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+files:
+- dist/darkness
+- dist/scroll.txt
+
+flags:
+- type: static
+  content: HZ2025{curser}
+hints:
+- content: |
+    0x0BC2ADF1
+  cost: 0
+- content: |
+    0xF406 a-z
+  cost: 0
+tags:
+- easy
+version: '0.1'

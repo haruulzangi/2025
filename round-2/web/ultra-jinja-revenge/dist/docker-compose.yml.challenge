@@ -1,0 +1,18 @@
+services:
+  ultra-jinja-revenge:
+    image: ghcr.io/haruulzangi/ultra-jinja-revenge/challenge:latest
+    read_only: true
+    networks:
+      - ultra-network
+    restart: unless-stopped
+  flag:
+    image: ghcr.io/haruulzangi/ultra-jinja-revenge/flag:latest
+    networks:
+      - ultra-network
+    environment:
+      FLAG: hi there
+    restart: unless-stopped
+networks:
+  ultra-network:
+    internal: true
+    name: ultra-network

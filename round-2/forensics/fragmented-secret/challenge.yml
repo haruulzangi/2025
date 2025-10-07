@@ -1,0 +1,32 @@
+name: Fragmented Secret
+author: 'Id3r'
+category: forensics
+
+description: |
+  Some truths are split, hiding in plain sight.
+
+  Among the files you will find:
+    - secret.enc : a mysterious file locked away
+    - cover.png : an image with a story hidden inside
+    - logs.txt : cryptic traces left behind
+    - config.txt : mundane notes that may or may not help
+  Combine the scattered pieces carefully and see what emerges. Every artifact has its role.
+
+attribution: Authored by Id3r
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+files:
+- dist/R2_chall.tar.gz
+
+flags:
+- type: static
+  content: HZ2025{M0ng0Lz2_M1n11_H4Myyd_M0ng0lz}
+tags:
+- easy
+version: '0.1'

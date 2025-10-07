@@ -1,0 +1,24 @@
+name: Green thing
+author: '<https://github.com/nurmukhammyed>'
+category: web
+
+description: ''
+
+attribution: Authored by <https://github.com/nurmukhammyed>
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+image: null
+
+
+connection_info: https://green-thing.challenge.haruulzangi.mn
+
+flags:
+- type: static
+  content: HZ2025{p1ckl3s_m4k3_my_tummy_t1ckl3}
+tags:
+- medium
+version: '0.1'

@@ -1,0 +1,25 @@
+name: Ghost in the Emulator
+author: 'Id3r'
+category: forensics
+
+description: |
+  Find me:
+
+  <https://drive.google.com/file/d/17u1pWdLAz41OUDy82LSGvJ5zXiqL-HHZ/view?usp=sharing>
+
+attribution: Authored by Id3r
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+image: null
+
+
+flags:
+- type: static
+  content: HZ2025{aNDR0ID_hIDD3N_Fl@g}
+tags:
+- medium
+version: '0.1'

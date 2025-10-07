@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1d3557, #457b9d);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            width: 500px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        img {
+            width: 300px;
+            height: auto;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        p {
+            font-size: 18px;
+            color: #1d3557;
+            margin: 20px 0;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background: #457b9d;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: background 0.3s ease, transform 0.2s;
+        }
+
+        a:hover {
+            background: #1d3557;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='01.PNG') }}" alt="banner">
+        <p>{{ result }}</p>
+        <p><font color="red">{{ error }}</font></p>
+        <a href="/">⬅ Back</a>
+    </div>
+</body>
+</html>

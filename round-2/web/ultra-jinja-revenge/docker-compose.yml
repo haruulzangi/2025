@@ -1,0 +1,54 @@
+services:
+  ultra-jinja-revenge:
+    image: ghcr.io/haruulzangi/ultra-jinja-revenge/challenge:latest
+    scale: 2
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    read_only: true
+    networks:
+      - traefik_proxy
+      - internal
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik_proxy
+
+      - traefik.http.routers.ultra-jinja-revenge-http.entrypoints=web
+      - traefik.http.routers.ultra-jinja-revenge-http.rule=Host(`ultra-jinja-revenge.challenge.haruulzangi.mn`)
+      - traefik.http.routers.ultra-jinja-revenge-http.middlewares=ultra-jinja-revenge-https
+      - traefik.http.middlewares.ultra-jinja-revenge-https.redirectscheme.scheme=https
+      - traefik.http.routers.ultra-jinja-revenge.entrypoints=websecure
+      - traefik.http.routers.ultra-jinja-revenge.rule=Host(`ultra-jinja-revenge.challenge.haruulzangi.mn`)
+      # - traefik.http.routers.ultra-jinja-revenge.middlewares=auth
+      # - traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$wXHQ2m8s$$uOIL5fIUQAZGhdVALRIJQ0
+
+      - traefik.http.services.ultra-jinja-revenge.loadbalancer.server.port=5000
+      - traefik.http.routers.ultra-jinja-revenge.tls=true
+      - traefik.http.routers.ultra-jinja-revenge.tls.certresolver=myresolver
+  flag:
+    image: ghcr.io/haruulzangi/ultra-jinja-revenge/flag:latest
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    networks:
+      - internal
+    environment:
+      FLAG: HZ2025{https://youtu.be/0Wa_CR0H8g4?si=SIGNATURE}
+    restart: unless-stopped
+networks:
+  traefik_proxy:
+    external: true
+  internal:
+    internal: true
+    name: ultra-network

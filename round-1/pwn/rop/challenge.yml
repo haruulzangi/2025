@@ -1,0 +1,29 @@
+name: ROP
+author: '[enhbold](https://github.com/enhbold)'
+category: pwn
+
+description: |
+  can you do ROP?
+
+attribution: Authored by [enhbold](https://github.com/enhbold)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+image: null
+
+files:
+- dist/pwn1
+- dist/libc.so.6
+
+
+connection_info: ncat --ssl rop.challenge.haruulzangi.mn 1337
+
+flags:
+- type: static
+  content: HZ2025{w3lc0me-T0-pa4444wn}
+tags:
+- warmup
+version: '0.1'

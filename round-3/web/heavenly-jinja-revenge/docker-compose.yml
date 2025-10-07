@@ -1,0 +1,76 @@
+services:
+  heavenly-jinja-revenge:
+    image: ghcr.io/haruulzangi/heavenly-jinja-revenge/challenge:latest
+    scale: 6
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1G
+          pids: 1
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    read_only: true
+    networks:
+      - traefik_proxy
+      - internal
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik_proxy
+
+      - traefik.http.routers.heavenly-jinja-revenge-http.entrypoints=web
+      - traefik.http.routers.heavenly-jinja-revenge-http.rule=Host(`heavenly-jinja-revenge.challenge.haruulzangi.mn`)
+      - traefik.http.routers.heavenly-jinja-revenge-http.middlewares=heavenly-jinja-revenge-https
+      - traefik.http.middlewares.heavenly-jinja-revenge-https.redirectscheme.scheme=https
+      - traefik.http.routers.heavenly-jinja-revenge.entrypoints=websecure
+      - traefik.http.routers.heavenly-jinja-revenge.rule=Host(`heavenly-jinja-revenge.challenge.haruulzangi.mn`)
+      - traefik.http.routers.heavenly-jinja-revenge.middlewares=auth
+      - traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$wXHQ2m8s$$uOIL5fIUQAZGhdVALRIJQ0
+
+      - traefik.http.services.heavenly-jinja-revenge.loadbalancer.server.port=5000
+      - traefik.http.routers.heavenly-jinja-revenge.tls=true
+      - traefik.http.routers.heavenly-jinja-revenge.tls.certresolver=myresolver
+  db:
+    image: ghcr.io/haruulzangi/heavenly-jinja-revenge/db:latest
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    networks:
+      - internal
+    environment:
+      POSTGRES_USER: ninja
+      POSTGRES_PASSWORD: jinja
+      POSTGRES_DB: db
+    restart: unless-stopped
+  watchdog:
+    image: ghcr.io/haruulzangi/heavenly-jinja-revenge/watchdog:latest
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    environment:
+      FLAG: HZ2025{S@g3s-0f_w3B-(1)-@ppr0v3-y0ur_@sc3nt10n_(2)}
+      DB_HOST: db
+      DB_NAME: db
+      DB_USER: ninja
+      DB_PASSWORD: jinja
+    networks:
+      - internal
+    restart: unless-stopped
+networks:
+  traefik_proxy:
+    external: true
+  internal:
+    internal: true
+    name: heavenly-network

@@ -1,0 +1,26 @@
+name: The Wisdom of the Eternal Blue Sky
+author: '[bekkaze](https://github.com/bekkaze)'
+category: reverse
+
+description: |
+  In the wide Mongolian steppes, an old sage left a digital scroll filled with ancient wisdom. If you follow the sage’s path, you can uncover the hidden word that the spirits whisper through the digital wind.
+
+attribution: Authored by [bekkaze](https://github.com/bekkaze)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+image: null
+
+files:
+- dist/wisdom
+
+
+flags:
+- type: static
+  content: HZ2025{t3ngr!_w1sd0M}
+tags:
+- medium
+version: '0.1'

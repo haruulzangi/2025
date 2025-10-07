@@ -1,0 +1,6 @@
+services:
+  chicken-or-egg:
+    image: ghcr.io/haruulzangi/chicken-or-egg:latest
+    restart: always
+    ports:
+      - 8022:2222

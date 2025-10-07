@@ -1,0 +1,27 @@
+services:
+  reverse-task---the-beginning:
+    scale: 2
+    image: ghcr.io/haruulzangi/reverse-task---the-beginning:latest
+    networks: [traefik_proxy]
+    restart: always
+    environment:
+      - FLAG=HZ2025{1_w1ll_$1_c0m3_b@ck!_$2}
+    labels:
+      - traefik.enable=true
+
+      - traefik.http.routers.reverse-task---the-beginning-http.entrypoints=web
+      - traefik.http.routers.reverse-task---the-beginning-http.rule=Host(`reverse-task---the-beginning.challenge.haruulzangi.mn`)
+      - traefik.http.routers.reverse-task---the-beginning-http.middlewares=reverse-task---the-beginning-https
+      - traefik.http.middlewares.reverse-task---the-beginning-https.redirectscheme.scheme=https
+      - traefik.http.routers.reverse-task---the-beginning.entrypoints=websecure
+      - traefik.http.routers.reverse-task---the-beginning.rule=Host(`reverse-task---the-beginning.challenge.haruulzangi.mn`)
+      - traefik.http.routers.reverse-task---the-beginning.middlewares=auth
+      - traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$wXHQ2m8s$$uOIL5fIUQAZGhdVALRIJQ0
+
+      - traefik.http.services.reverse-task---the-beginning.loadbalancer.server.port=8080
+      - traefik.http.routers.reverse-task---the-beginning.tls=true
+      - traefik.http.routers.reverse-task---the-beginning.tls.certresolver=myresolver
+
+networks:
+  traefik_proxy:
+    external: true

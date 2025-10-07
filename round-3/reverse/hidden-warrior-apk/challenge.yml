@@ -1,0 +1,27 @@
+name: Hidden Warrior APK
+author: '[Ebo](https://github.com/enhbold)'
+category: reverse
+
+description: |
+  Can you crack me?
+
+attribution: Authored by [Ebo](https://github.com/enhbold)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+files:
+- dist/
+
+connection_info: ncat --ssl fast-fast-fast.challenge.haruulzangi.mn 1337
+
+flags:
+- type: static
+  content: HZ2025{welcome to the hz final!}
+tags:
+- medium
+version: '0.1'

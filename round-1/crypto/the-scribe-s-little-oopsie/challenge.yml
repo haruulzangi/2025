@@ -1,0 +1,27 @@
+name: The Scribe's Little Oopsie
+author: '[zjzoloo](https://www.instagram.com/zjzoloo)'
+category: crypto
+
+description: |
+  Our legendary scribe, Shihihutag, was having a great day when he accidentally dropped a crucial piece of our encryption code on the digital plains.
+  It's a complete mess of math and modular shenanigans that only a true nerd could love.
+  It's an intel test, not a battle of code. Let's see if they're smart enough to solve it. Goodluck nerds.
+
+attribution: Authored by [zjzoloo](https://www.instagram.com/zjzoloo)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+image: null
+
+files:
+- dist/math101.py
+
+flags:
+- type: static
+  content: HZ2025{You,need_::*P3n*&*P4p3r*?}
+tags:
+- medium
+version: '0.1'

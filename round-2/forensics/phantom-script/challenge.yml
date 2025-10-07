@@ -1,0 +1,26 @@
+name: Phantom Script
+author: 'Id3r'
+category: forensics
+
+description: |
+  A PowerShell payload executed and disappeared without leaving a visible process. All that remains is a raw memory dump. Analyze it carefully and recover the hidden flag.
+
+  Challenge file:
+  <https://drive.google.com/file/d/1PIRfhpy8MIsZUT3IOCMa_9UMaMVbuMYH/view?usp=sharing>
+
+attribution: Authored by Id3r
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+
+flags:
+- type: static
+  content: HZ2025{XOR_ps_m3m_fl4g_0x1q2w3e4r5t}
+tags:
+- medium
+version: '0.1'

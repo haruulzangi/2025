@@ -1,0 +1,29 @@
+name: Heavenly Jinja
+author: "flame"
+category: web
+
+description: |
+  Not so simple stuff, actually might make you cry :(
+
+  Goal: read `/docker-entrypoint-initdb.d/seed.sql`
+
+attribution: Authored by flame
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+image: null
+
+files:
+  - dist/docker-compose.yml.challenge
+
+connection_info: https://ultra-jinja---warmup.challenge.haruulzangi.mn
+
+flags:
+  - type: static
+    content: HZ2025{l@t3r@l_m00000v3m3nt_r0cks_u_b3c0m1ng_a_hecker_Oik=}
+tags:
+  - hard
+version: "0.1"

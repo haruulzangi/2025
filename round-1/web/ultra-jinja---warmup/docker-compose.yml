@@ -1,0 +1,51 @@
+services:
+  ultra-jinja---warmup:
+    build:
+      context: challenge
+    scale: 2
+    image: ghcr.io/haruulzangi/ultra-jinja---warmup/challenge:latest
+    networks: [traefik_proxy, ultra-network]
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    labels:
+      - traefik.enable=true
+
+      - traefik.http.routers.ultra-jinja---warmup-http.entrypoints=web
+      - traefik.http.routers.ultra-jinja---warmup-http.rule=Host(`ultra-jinja---warmup.challenge.haruulzangi.mn`)
+      - traefik.http.routers.ultra-jinja---warmup-http.middlewares=ultra-jinja---warmup-https
+      - traefik.http.middlewares.ultra-jinja---warmup-https.redirectscheme.scheme=https
+      - traefik.http.routers.ultra-jinja---warmup.entrypoints=websecure
+      - traefik.http.routers.ultra-jinja---warmup.rule=Host(`ultra-jinja---warmup.challenge.haruulzangi.mn`)
+      # - traefik.http.routers.ultra-jinja---warmup.middlewares=auth
+      # - traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$wXHQ2m8s$$uOIL5fIUQAZGhdVALRIJQ0
+      - traefik.http.routers.ultra-jinja---warmup.tls=true
+      - traefik.http.routers.ultra-jinja---warmup.tls.certresolver=myresolver
+
+      - traefik.http.services.ultra-jinja---warmup.loadbalancer.server.port=8080
+  db: # You can't get there that easily…
+    image: ghcr.io/haruulzangi/ultra-jinja---warmup/db:latest
+    networks: [ultra-network]
+    environment:
+      POSTGRES_USER: ninja
+      POSTGRES_PASSWORD: jinja
+      POSTGRES_DB: db
+    ports: [] # Life ain't easy eh?
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+networks:
+  traefik_proxy:
+    external: true
+  ultra-network:

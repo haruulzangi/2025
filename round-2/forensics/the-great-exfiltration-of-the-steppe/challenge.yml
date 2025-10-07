@@ -1,0 +1,29 @@
+name: The Great Exfiltration of the Steppe
+author: 'xyptonize'
+category: forensics
+
+description: |
+  The year is 1227… or is it 2027?
+  Whispers spread across the steppes that Genghis Khan has returned — but not with horsemen and bows. Instead, his Cyber Horde rides the waves of the Internet, launching raids across the digital Silk Road.
+
+  Your mission is to stop one of his elite cyber-warriors. Intelligence suggests that the Horde has stolen a flag of power and exfiltrated it piece by piece using covert channels. Our monitoring systems captured strange traffic, but the data is fragmented and encrypted.
+  Luckily every artifact is collected and presented to you. Good luck!
+
+attribution: Authored by xyptonize
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+files:
+- dist/challenge.zip
+
+flags:
+- type: static
+  content: HZ2025{s0-G00d.c0n62475}
+tags:
+- medium
+version: '0.1'

@@ -1,0 +1,107 @@
+name: Zairan
+author: "neverl33t"
+category: crypto
+
+description: |
+  Shamans are oracles are an essential part of Mongolian culture. They are believed to have the ability to communicate with the spirit world and provide guidance to their communities. You have been with deciphering a mysterious code that has been passed down through generations. The code is believed to hold the key to unlocking a powerful secret that has been hidden away for centuries. Your goal is to use your knowledge of cryptography and ask a shaman to help you uncover the secret.
+
+attribution: Authored by neverl33t
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+
+connection_info: https://zairan.challenge.haruulzangi.mn:8003
+
+flags:
+  - type: regex
+    content: HZ2025{0r@cl1_kn0ws_PKI\+x509_[a-zA-Z\d\-_]+}
+hints:
+  - content: |
+      I heard a whisper in Go…
+      ```go
+        package server
+
+        import (
+          "crypto/ecdsa"
+          "crypto/rand"
+          "crypto/x509"
+          "encoding/pem"
+          "io"
+          "log"
+          "net/http"
+          "time"
+
+          "github.com/haruulzangi/2025/challenges/round-1/crypto/zairan/challenge/pki"
+        )
+
+        const ORACLE_ROUTE = "/zairan"
+
+        func DefineOracleRoute(intermediateCert *x509.Certificate, intermediateKey *ecdsa.PrivateKey) string {
+          http.HandleFunc(ORACLE_ROUTE, func(w http.ResponseWriter, r *http.Request) {
+            if r.Method != http.MethodPost {
+              http.Error(w, "Invalid request method, expected POST with data", http.StatusMethodNotAllowed)
+              return
+            }
+
+            if r.Header.Get("Content-Type") != "application/pkcs10" {
+              http.Error(w, "Invalid Content-Type, expected application/pkcs10", http.StatusBadRequest)
+              return
+            }
+            if r.ContentLength <= 0 {
+              http.Error(w, "Invalid Content-Length, expected non-zero length", http.StatusBadRequest)
+              return
+            }
+
+            data, err := io.ReadAll(r.Body)
+            if err != nil {
+              log.Printf("Failed to read request body: %v", err)
+              http.Error(w, "Failed to read request body", 499) // https://http.cat/status/499
+              return
+            }
+
+            block, _ := pem.Decode(data)
+            csr, err := x509.ParseCertificateRequest(block.Bytes)
+            if err != nil {
+              log.Printf("Failed to parse CSR: %v", err)
+              http.Error(w, "Failed to parse CSR", http.StatusBadRequest)
+              return
+            }
+
+            template := x509.Certificate{
+              Subject: csr.Subject,
+
+              AuthorityKeyId: intermediateCert.SubjectKeyId,
+              SubjectKeyId:   pki.CalculateSKI(csr.PublicKey),
+
+              NotBefore:             time.Now(),
+              NotAfter:              time.Now().Add(1 * 24 * time.Hour),
+              KeyUsage:              x509.KeyUsageDigitalSignature,
+              ExtKeyUsage:           []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth},
+              BasicConstraintsValid: true,
+            }
+            cert, err := x509.CreateCertificate(rand.Reader, &template, intermediateCert, csr.PublicKey, intermediateKey)
+            if err != nil {
+              log.Printf("Failed to create certificate: %v", err)
+              http.Error(w, "Failed to create certificate", http.StatusInternalServerError)
+              return
+            }
+
+            certPEM := pem.EncodeToMemory(&pem.Block{Type: "CERTIFICATE", Bytes: cert})
+
+            w.Header().Set("Content-Type", "application/pkix-cert")
+            w.WriteHeader(http.StatusOK)
+            if _, err := w.Write(certPEM); err != nil {
+              log.Printf("Failed to write response: %v", err)
+            }
+          })
+          return ORACLE_ROUTE
+        }
+      ```
+    cost: 0
+
+tags:
+  - medium
+version: "0.1"

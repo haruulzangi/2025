@@ -1,0 +1,26 @@
+name: Nomad's Key
+author: '[zjzoloo](https://www.instagram.com/zjzoloo)'
+category: crypto
+
+description: |
+  The Mongolian Cyber Horde hides its plans behind an ancient mathematical seal.
+  Split, encrypted, and guarded by trigonometry—can you reconstruct the message and uncover their secrets? -zjzoloo
+
+attribution: Authored by [zjzoloo](https://www.instagram.com/zjzoloo)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+files:
+- dist/challenge.py
+
+flags:
+- type: static
+  content: HZ2025{tr!gon0m3tric_func_R3lationsh!p_tr!4ngles}
+tags:
+- medium
+version: '0.1'

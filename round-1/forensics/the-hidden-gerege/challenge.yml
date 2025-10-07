@@ -1,0 +1,26 @@
+name: The Hidden Gerege
+author: xyptonize
+category: forensics
+
+description: |
+  The Cyber Horde was defeated in battle, but before retreating, one of their scribes hid a secret scroll inside a file. The scroll contains part of the Horde’s battle plan. To uncover it, you must recover the flag.
+
+attribution: Authored by xyptonize
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+image: null
+
+files:
+- dist/Plain_steppe.zip
+
+
+flags:
+- type: static
+  content: HZ2025{th3_l0st_g3r3g3-h45-been-f0und}
+tags:
+- easy
+version: '0.1'

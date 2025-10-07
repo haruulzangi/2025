@@ -1,0 +1,29 @@
+name: Heavenly Jinja revenge
+author: "[flame](https://github.com/zolbooo)"
+category: web
+
+description: |
+  Mr. Ninja Jinja has learnt a lot during first two rounds, he presents you a pinnacle of his developments!
+  I hope you learnt Jinja well :)
+
+attribution: Authored by [flame](https://github.com/zolbooo)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+files:
+  - dist/docker-compose.yml.challenge
+  - challenge/app/main.py
+
+connection_info: https://heavenly-jinja-revenge.challenge.haruulzangi.mn
+
+flags:
+  - type: regex
+    content: HZ2025{S@g3s-0f_w3B-[a-zA-Z\d\-_]{8,}-@ppr0v3-y0ur_@sc3nt10n_[a-zA-Z\d\-_]{8,}}
+tags:
+  - hard
+version: "0.1"

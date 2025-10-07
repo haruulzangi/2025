@@ -1,0 +1,23 @@
+name: Welcome
+category: misc
+author: 'Haruul Zangi Team'
+attribution: Authored by Haruul Zangi Team
+
+description: |
+  Sorry for the late introduction, but welcome to Haruul Zangi!
+  https://discord.gg/b6v5pkNcCE is our discord server, join us there if you haven't already!
+
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+image: null
+
+flags:
+- type: static
+  content: HZ2025{welcome!!!!_ddf006d5f607c9b5e12b45a6279f1eaa788ae369fb92bea5950faf92527dcccd}
+tags:
+- hard
+version: '0.1'

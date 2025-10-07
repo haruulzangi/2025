@@ -1,0 +1,20 @@
+services:
+  heavenly-jinja-revenge:
+    image: ghcr.io/haruulzangi/heavenly-jinja-revenge/challenge:latest
+    read_only: true
+    networks:
+      - heavenly-network
+    restart: unless-stopped
+  db:
+    image: ghcr.io/haruulzangi/heavenly-jinja-revenge/db:latest
+    networks:
+      - heavenly-network
+    environment:
+      POSTGRES_USER: ninja
+      POSTGRES_PASSWORD: jinja
+      POSTGRES_DB: db
+    restart: unless-stopped
+networks:
+  heavenly-network:
+    internal: true
+    name: ultra-network

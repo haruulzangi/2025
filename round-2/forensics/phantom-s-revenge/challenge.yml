@@ -1,0 +1,24 @@
+name: Phantom's Revenge
+author: 'Id3r'
+category: forensics
+
+description: |
+  Challenge file:
+  <https://transfer.cloud.mn/view/BC3B29>
+
+attribution: Authored by Id3r
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+
+flags:
+- type: static
+  content: HZ2025{Brut3_f0rce_x00000r}
+tags:
+- easy
+version: '0.1'

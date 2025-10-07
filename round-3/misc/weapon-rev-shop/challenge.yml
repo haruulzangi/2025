@@ -1,0 +1,25 @@
+name: Weapon rev shop
+author: '[bekkaze](https://github.com/bekkaze)'
+category: misc
+
+description: |
+  Welcome to the Weapon Shop! Here, you can find a variety of weapons to aid you in your quests. Choose wisely, as the right weapon can make all the difference in your adventures. Good luck, and may your battles be victorious!
+
+attribution: Authored by [bekkaze](https://github.com/bekkaze)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+
+connection_info: ncat --ssl weapon-rev-shop.challenge.haruulzangi.mn 1337
+
+flags:
+- type: static
+  content: HZ2025{Y0u_ch0ose_th3_r1ght_w34p0n!}
+tags:
+- medium
+version: '0.1'

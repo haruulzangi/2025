@@ -1,0 +1,24 @@
+name: Ultra Jinja - Warmup
+author: "flame"
+category: web
+
+description: |
+  Simple stuff, just greet Mr. Ninja Jinja :)
+
+attribution: Authored by flame
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+image: null
+
+connection_info: https://ultra-jinja---warmup.challenge.haruulzangi.mn
+
+flags:
+  - type: static
+    content: HZ2025{https://youtu.be/8_sjoFKLFc8}
+tags:
+  - warmup
+version: "0.1"

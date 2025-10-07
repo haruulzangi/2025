@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Gerege: Revenge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --text: #e6e6ea;
+        --muted: #a0a2b0;
+        --panel: rgba(15,18,35,0.88);
+        --border: #2a2e4e;
+      }
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        color: var(--text);
+        font-family: 'Pixelify Sans', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        letter-spacing: 0.2px;
+        background: radial-gradient(1200px 600px at 20% 0%, #151832 0%, #0d0f1a 50%, #0a0c16 100%);
+      }
+      .title { position: fixed; top: 18px; left: 18px; font-size: 28px; margin: 0; text-shadow: 0 2px 0 #000; }
+      .gerege-float { position: fixed; top: 62%; left: var(--x); transform: translate(-50%, -50%); z-index: 2; }
+      .gerege-btn { background: transparent; border: none; padding: 0; cursor: pointer; }
+      .gerege-btn img { width: 96px; height: auto; image-rendering: pixelated; filter: drop-shadow(0 4px 0 #0a0c18); }
+      .gerege-btn:active img { transform: translateY(1px); }
+      .quote-panel { position: fixed; left: 50%; top: calc(62% + 150px); transform: translate(-50%, 0); max-width: 720px; background: var(--panel); border: 2px solid var(--border); border-radius: 10px; padding: 10px 14px; text-align: center; box-shadow: 0 8px 0 #0a0c18, inset 0 0 0 1px rgba(255,255,255,0.05); }
+      .quote-panel.hidden { display: none; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 14px; color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <h1 class="title">The Gerege</h1>
+
+    <button class="gerege-btn gerege-float" data-type="gold" style="--x:25%" aria-label="Gold Gerege">
+      <img id="goldImg" alt="Gold" />
+    </button>
+    <button class="gerege-btn gerege-float" data-type="silver" style="--x:50%" aria-label="Silver Gerege">
+      <img id="silverImg" alt="Silver" />
+    </button>
+    <button class="gerege-btn gerege-float" data-type="bronze" style="--x:75%" aria-label="Bronze Gerege">
+      <img id="bronzeImg" alt="Bronze" />
+    </button>
+
+    <div id="quotePanel" class="quote-panel hidden">
+      <span id="quoteText" class="mono"></span>
+    </div>
+
+    <script>
+      (function () {
+        const quotePanel = document.getElementById('quotePanel');
+        const quoteText = document.getElementById('quoteText');
+
+        function showQuote(text) {
+          quoteText.textContent = text;
+          quotePanel.classList.remove('hidden');
+        }
+
+        async function postPublic(path) {
+          const body = new URLSearchParams({ p: path });
+          const res = await fetch('/public', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
+          if (!res.ok) throw new Error('fetch failed');
+          return res.json();
+        }
+
+        async function loadBackground() {
+          try {
+            const r = await postPublic('/public/background');
+            if (r && r.data) {
+              document.body.style.backgroundImage = `url(data:image/png;base64,${r.data})`;
+              document.body.style.backgroundSize = 'cover';
+              document.body.style.backgroundPosition = 'center';
+              document.body.style.backgroundAttachment = 'fixed';
+              document.body.style.imageRendering = 'pixelated';
+            }
+          } catch (_) {}
+        }
+
+        async function loadIcons() {
+          try {
+            const [g, s, b] = await Promise.all([
+              postPublic('/public/golden-gerege'),
+              postPublic('/public/silver-gerege'),
+              postPublic('/public/bronze-gerege'),
+            ]);
+            if (g && g.data) document.getElementById('goldImg').src = `data:image/png;base64,${g.data}`;
+            if (s && s.data) document.getElementById('silverImg').src = `data:image/png;base64,${s.data}`;
+            if (b && b.data) document.getElementById('bronzeImg').src = `data:image/png;base64,${b.data}`;
+          } catch (_) {}
+        }
+
+        async function fetchGeregeQuote(type) {
+          try {
+            const res = await fetch(`/gerege?type=${encodeURIComponent(type)}`);
+            const body = await res.json().catch(() => ({}));
+            const text = body.data || body.message || 'No response';
+            showQuote(text);
+          } catch (_) {
+            showQuote('Network error');
+          }
+        }
+
+        document.querySelectorAll('.gerege-btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            const t = btn.getAttribute('data-type');
+            fetchGeregeQuote(t);
+          });
+        });
+
+        loadBackground();
+        loadIcons();
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+services:
+  app:
+    image: ghcr.io/haruulzangi/the-gerege:latest
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 4G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    restart: always
+    networks:
+      - internal_net
+
+  nginx:
+    image: nginx:stable
+    volumes:
+      - ./challenge/public:/public
+      - ./challenge/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./challenge/flag.txt:/flag.txt
+    ports:
+      - 8008:80
+    networks:
+      - internal_net
+    depends_on:
+      - app
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 4G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+
+networks:
+  internal_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.0.0/16
+

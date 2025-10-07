@@ -1,0 +1,27 @@
+name: Cyber Horde Rises
+author: xyptonize
+category: misc
+
+description: |
+  Your SOC has intercepted chatter about a hacker collective calling themselves Genghis Khan's Cyber Horde. They claim to be “conquering cyberspace as the Khan conquered the steppe.”
+  Your task is to track their digital footprint and uncover their hidden flag.
+
+attribution: Authored by xyptonize
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 30
+  minimum: 100
+image: null
+
+files:
+- dist/warrior.png
+
+
+flags:
+- type: static
+  content: HZ2025{Cyb3R_H0rd3_gl4z3r}
+tags:
+- medium
+version: '0.1'

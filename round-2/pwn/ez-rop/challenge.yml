@@ -1,0 +1,27 @@
+name: ez ROP
+author: '[enhbold](https://github.com/enhbold)'
+category: pwn
+
+description: |
+  MORE ROP
+
+attribution: Authored by [enhbold](https://github.com/enhbold)
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+files:
+- dist/pwn4
+
+connection_info: ncat --ssl ez-rop.challenge.haruulzangi.mn 1337
+
+flags:
+- type: static
+  content: HZ2025{s0-34zy_bd17b7b85d93fd560714644c2e1f32be}
+tags:
+- medium
+version: '0.1'

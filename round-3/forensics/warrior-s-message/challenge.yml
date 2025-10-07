@@ -1,0 +1,23 @@
+name: Warrior’s Message
+author: 'id3r'
+category: forensics
+
+description: |
+  A secret text reaches the warriors. Can you find the PID of the process that delivered it? File: <https://transfer.cloud.mn/view/5J8J3B>
+
+attribution: Authored by id3r
+type: dynamic
+
+extra:
+  initial: 1000
+  decay: 10
+  minimum: 100
+image: null
+
+
+flags:
+- type: static
+  content: HZ2025{7480}
+tags:
+- warmup
+version: '0.1'
